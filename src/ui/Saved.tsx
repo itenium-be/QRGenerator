@@ -15,16 +15,17 @@ export default function Saved({ items, onLoad, onRemove }: Props) {
     <div className="saved">
       {items.map(item => (
         <div key={item.id} className="saved-row">
-          <span
-            dangerouslySetInnerHTML={{
-              __html: renderSvg({ ...item.design, margin: 1, mark: { type: 'none' } }),
-            }}
-          />
-          <span className="meta">
-            <b>{item.name}</b>
-            <span>{new Date(item.savedAt).toLocaleDateString()}</span>
-          </span>
-          <button className="btn btn-ghost btn-sm" onClick={() => onLoad(item.design)}>Open</button>
+          <button className="saved-open" onClick={() => onLoad(item.design)} title={`Open ${item.name}`}>
+            <span
+              dangerouslySetInnerHTML={{
+                __html: renderSvg({ ...item.design, margin: 1, mark: { type: 'none' } }),
+              }}
+            />
+            <span className="meta">
+              <b>{item.name}</b>
+              <span>{new Date(item.savedAt).toLocaleDateString()}</span>
+            </span>
+          </button>
           <button className="btn btn-ghost btn-sm btn-icon" title={`Delete ${item.name}`} onClick={() => onRemove(item.id)}>
             ✕
           </button>
