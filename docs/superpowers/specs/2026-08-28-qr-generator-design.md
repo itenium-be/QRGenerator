@@ -90,10 +90,11 @@ white plate under a light-coloured code so it can't lie about what exports.
 ## Visual direction
 
 Monochrome UI whose only chroma is the user's own QR colour, which also tints the active
-controls. Section markers are the finder-pattern glyph. Bricolage Grotesque display, IBM Plex
-Sans body, IBM Plex Mono for data. Cool paper ground in light, ink ground in dark.
+controls — plus itenium's orange, which belongs to their mark alone. Bricolage Grotesque display,
+IBM Plex Sans body, IBM Plex Mono for data. Cool paper ground in light, ink ground in dark. The
+steps are numbered because they are an actual sequence.
 
-Footer: a GitHub icon linking to the repo, and "offered by itenium.be".
+Footer: itenium's mark linking to itenium.be, and a GitHub icon linking to the repo.
 
 ## The centre mark and error correction
 

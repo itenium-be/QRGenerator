@@ -8,7 +8,7 @@ import { initialDesign, reduce } from '../state/design'
 import { fromHash, toHash } from '../state/hash'
 import * as store from '../state/saved'
 import { applyTheme, initTheme, type Theme } from '../state/theme'
-import { Finder, GithubGlyph, MoonGlyph, SunGlyph, Wordmark } from './glyphs'
+import { GithubGlyph, IteniumGlyph, MoonGlyph, SunGlyph, Wordmark } from './glyphs'
 import { useDebounced, useIconIndex, useMark, useRender, useScanCheck } from './hooks'
 import Preview from './Preview'
 import Saved from './Saved'
@@ -197,10 +197,10 @@ export default function App() {
       </div>
 
       <footer className="footer">
-        <Finder />
-        <span>
-          offered by <a href="https://itenium.be" target="_blank" rel="noreferrer noopener">itenium.be</a>
-        </span>
+        <a href="https://itenium.be" target="_blank" rel="noreferrer noopener">
+          <IteniumGlyph />
+          <span>offered by itenium.be</span>
+        </a>
         <span style={{ flex: 1 }} />
         <a href={REPO} target="_blank" rel="noreferrer noopener" aria-label="Source on GitHub">
           <GithubGlyph />

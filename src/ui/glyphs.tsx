@@ -12,11 +12,17 @@ export const Wordmark = () => (
   </svg>
 )
 
-/** The mark that tells a scanner where to start reading, reused to mark a section. */
-export const Finder = () => (
-  <svg className="finder" viewBox="0 0 14 14" aria-hidden="true">
-    <rect x="1" y="1" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" />
-    <rect x="5" y="5" width="4" height="4" fill="currentColor" />
+/** itenium's own mark, in their orange, which reads on both grounds. */
+export const IteniumGlyph = () => (
+  <svg viewBox="0 0 500 500" aria-hidden="true" fill="none">
+    <path
+      d="M240.966 28.8038L212.041 8.12531C106.866 131.104 77.6294 281.627 142.886 365.2L182.882 328.681C128.229 258.296 152.632 132.118 240.966 28.8038Z"
+      fill="#E78200"
+    />
+    <path
+      d="M258.349 473.196L287.274 493.875C392.449 370.896 421.608 220.373 356.429 136.8L316.433 173.319C371.087 243.704 346.684 369.96 258.349 473.274V473.196Z"
+      fill="#E78200"
+    />
   </svg>
 )
 
