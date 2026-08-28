@@ -1,0 +1,33 @@
+{
+  "name": "quiet-zone",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun run icons && vite",
+    "build": "bun run icons && tsc -b && vite build",
+    "preview": "vite preview",
+    "icons": "bun run scripts/build-icons.ts",
+    "test": "bun run icons && vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "qrcode-generator": "^2.0.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "@vitejs/plugin-react": "^6.1.1",
+    "lucide-static": "^1.35.0",
+    "simple-icons": "^16.28.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11",
+    "zxing-wasm": "^3.1.3"
+  }
+}
