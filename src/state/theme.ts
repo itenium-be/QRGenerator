@@ -1,4 +1,4 @@
-const KEY = 'quietzone.theme.v1'
+const KEY = 'qrgen.theme.v1'
 export type Theme = 'light' | 'dark'
 
 export function initTheme(): Theme {

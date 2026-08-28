@@ -1,5 +1,5 @@
 {
-  "name": "quiet-zone",
+  "name": "qr-generator",
   "private": true,
   "type": "module",
   "scripts": {

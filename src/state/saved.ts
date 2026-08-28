@@ -1,6 +1,6 @@
 import type { QrDesign } from '../qr/types'
 
-const KEY = 'quietzone.saved.v1'
+const KEY = 'qrgen.saved.v1'
 /** localStorage is a few megabytes; a bigger upload is dropped rather than silently failing. */
 const MAX_UPLOAD_BYTES = 100_000
 

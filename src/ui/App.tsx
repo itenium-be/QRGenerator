@@ -8,7 +8,7 @@ import { initialDesign, reduce } from '../state/design'
 import { fromHash, toHash } from '../state/hash'
 import * as store from '../state/saved'
 import { applyTheme, initTheme, type Theme } from '../state/theme'
-import { GithubGlyph, IteniumGlyph, MoonGlyph, SunGlyph, Wordmark } from './glyphs'
+import { GithubGlyph, IteniumLogo, MoonGlyph, SunGlyph, Wordmark } from './glyphs'
 import { useDebounced, useIconIndex, useMark, useRender, useScanCheck } from './hooks'
 import Preview from './Preview'
 import Saved from './Saved'
@@ -100,8 +100,8 @@ export default function App() {
       <header className="appbar">
         <div className="wordmark">
           <Wordmark />
-          <h1>Quiet Zone</h1>
-          <span>QR studio</span>
+          <h1>QR Generator</h1>
+          <span>by itenium</span>
         </div>
         <span style={{ flex: 1 }} />
         <button className="btn btn-ghost btn-sm" aria-expanded={showSaved} onClick={() => setShowSaved(v => !v)}>
@@ -198,8 +198,8 @@ export default function App() {
 
       <footer className="footer">
         <a href="https://itenium.be" target="_blank" rel="noreferrer noopener">
-          <IteniumGlyph />
-          <span>offered by itenium.be</span>
+          <span>offered by</span>
+          <IteniumLogo />
         </a>
         <span style={{ flex: 1 }} />
         <a href={REPO} target="_blank" rel="noreferrer noopener" aria-label="Source on GitHub">

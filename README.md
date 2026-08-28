@@ -1,4 +1,4 @@
-# Quiet Zone
+# QR Generator by itenium
 
 QR codes with a colour scheme and an icon in the middle, in the browser only.
 

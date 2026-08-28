@@ -1,4 +1,4 @@
-# Quiet Zone — QR generator
+# QR Generator by itenium
 
 A static site that builds a styled QR code from a handful of payload kinds, with an icon or
 uploaded image in the middle. No backend, no accounts, no tracking. Published to GitHub Pages
@@ -94,7 +94,8 @@ controls — plus itenium's orange, which belongs to their mark alone. Bricolage
 IBM Plex Sans body, IBM Plex Mono for data. Cool paper ground in light, ink ground in dark. The
 steps are numbered because they are an actual sequence.
 
-Footer: itenium's mark linking to itenium.be, and a GitHub icon linking to the repo.
+Footer: itenium's wordmark linking to itenium.be, and a GitHub icon linking to the repo. The app
+is named plainly — "QR Generator", "by itenium" — so a stranger knows what the page is.
 
 ## The centre mark and error correction
 
