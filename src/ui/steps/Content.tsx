@@ -1,7 +1,6 @@
 import { PAYLOADS, PAYLOAD_KINDS, type PayloadKind } from '../../payloads'
 import type { QrDesign } from '../../qr/types'
 import { FIELDS } from '../fields'
-import { Finder } from '../glyphs'
 
 type Props = {
   design: QrDesign
@@ -82,12 +81,6 @@ export default function Content({ design, onKind, onField }: Props) {
           </div>
         ))}
       </div>
-
-      {design.kind === 'wifi' && (
-        <p className="hint">
-          <Finder /> iOS and Android both join straight from the camera. Windows and Linux mostly don't.
-        </p>
-      )}
     </>
   )
 }
