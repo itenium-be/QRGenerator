@@ -44,6 +44,10 @@ markColor: 'inherit'|'brand'|hex, mark: {source:'icon'|'upload'|'none', ref}, ma
 margin, ecc, format, pixelSize, fileName
 ```
 
+qr-code-styling was the first choice, but it needs a DOM, and decoding is the whole test suite —
+so the renderer is a pure matrix-to-SVG function over qrcode-generator instead, which runs
+identically in node and the browser.
+
 `markColor: 'brand'` resolves to the icon's official hex and is only offered for brand icons.
 A single-colour SVG upload tints; a multi-colour SVG or a raster image does not, and the control
 says so instead of doing nothing. The plate behind the mark is always the QR background colour.
@@ -53,8 +57,9 @@ says so instead of doing nothing. The plate behind the mark is always the QR bac
 | Module | Responsibility | Depends on |
 |---|---|---|
 | `payloads/`       | One encoder + validator per kind. Pure.                       | nothing           |
-| `qr/render.ts`    | `QrDesign → SVG string`. Wraps qr-code-styling.               | qr-code-styling   |
-| `qr/verify.ts`    | `SVG → decoded string \| null`. Rasterize, then decode.       | resvg, zxing-wasm |
+| `qr/render.ts`    | `QrDesign → SVG string`, over a matrix from qrcode-generator. | qrcode-generator  |
+| `qr/verify.ts`    | `SVG → decoded string \| null`. Rasterize, then decode.       | injected          |
+| `qr/fit.ts`       | Largest mark size that a decoder actually reads back.         | verify            |
 | `state/design.ts` | Reducer over `QrDesign`; the only writer.                     | nothing           |
 | `state/hash.ts`   | `QrDesign ⇄ URL hash`, versioned, tolerant of unknown keys.   | design types      |
 | `state/saved.ts`  | localStorage CRUD for saved designs.                          | design types      |
@@ -90,15 +95,27 @@ Sans body, IBM Plex Mono for data. Cool paper ground in light, ink ground in dar
 
 Footer: a GitHub icon linking to the repo, and "offered by itenium.be".
 
+## The centre mark and error correction
+
+Measured, not assumed: on a short link (29×29) a 0.30 mark fails at every ECC level, 0.20 needs
+level H, and level L breaks at any mark size. The same 0.30 mark on a vCard (77×77) reads fine.
+Scannability is not even monotonic in size — 0.38 can read where 0.35 does not.
+
+So adding a mark forces ECC H and caps the size at 0.20, and "shrink the mark to fit" binary
+searches for a size that decodes and then re-verifies the rounded answer rather than trusting the
+search. Codes are judged at roughly 16 pixels per module, so antialiasing isn't what decides.
+
 ## Testing
 
 Decoding is the test. A harness builds a design, renders the SVG, rasterizes it with
 `@resvg/resvg-js`, decodes it with `zxing-wasm`, and asserts the decoded string equals the
 encoded payload. It runs as a table across payload kinds × module styles × eye styles × ECC ×
-mark size × quiet zone. Anything that breaks scannability fails.
+mark size × quiet zone, plus a non-latin payload that has to come back byte-exact. Share links
+get a round-trip test of their own, since a broken one silently loses work.
 
-`verify.ts` also runs in the browser, so step 4 shows a "scans clean" badge from a real decode
-rather than a promise.
+`verify.ts` also runs in the browser — the same code, a canvas rasterizer instead of resvg — so
+the preview badge is a real decode rather than a promise. The reader's wasm ships from the same
+origin; nothing is fetched from a CDN at runtime.
 
 ## Deploy
 
