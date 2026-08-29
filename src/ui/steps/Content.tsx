@@ -16,7 +16,6 @@ export default function Content({ design, onKind, onField }: Props) {
     <>
       <div>
         <h2>What should it open?</h2>
-        <p className="lede">Pick a kind, fill in its fields. Each kind keeps what you typed, so you can switch back.</p>
       </div>
 
       <div className="chipset">
