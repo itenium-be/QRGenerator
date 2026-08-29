@@ -6,7 +6,7 @@ const V = 1
 
 /** Short keys keep shared links readable; the version guards future changes. */
 const KEYS = {
-  k: 'kind', d: 'dot', ef: 'eyeFrame', ed: 'eyeDot', f: 'fg', f2: 'fg2', b: 'bg',
+  k: 'kind', d: 'dot', ef: 'eyeFrame', ed: 'eyeDot', f: 'fg', f2: 'fg2', b: 'bg', tr: 'transparent',
   e: 'eye', mc: 'markColor', ms: 'markSize', mp: 'markClearance', q: 'margin',
   c: 'ecc', fm: 'format', px: 'pixelSize', fn: 'fileName',
 } as const
@@ -42,7 +42,8 @@ export function fromHash(hash: string): QrDesign | null {
     if (value === null) continue
     if (long === 'kind') continue
     const numeric = long === 'markSize' || long === 'markClearance' || long === 'margin' || long === 'pixelSize'
-    ;(design as Record<string, unknown>)[long] = numeric ? Number(value) : value
+    const bool = long === 'transparent'
+    ;(design as Record<string, unknown>)[long] = numeric ? Number(value) : bool ? value === 'true' : value
   }
   if (design.fg2 === 'null') design.fg2 = null
   if (design.eye === 'null') design.eye = null

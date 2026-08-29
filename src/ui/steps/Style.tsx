@@ -33,7 +33,7 @@ export default function Style({ design, onSet, onPreset }: Props) {
             <button key={p.name} className="preset" aria-pressed={matches(p)} onClick={() => onPreset(i)}>
               <span
                 dangerouslySetInnerHTML={{
-                  __html: renderSvg({ ...design, ...p, margin: 1, mark: { type: 'none' }, kind: 'url' }),
+                  __html: renderSvg({ ...design, ...p, margin: 1, transparent: false, mark: { type: 'none' }, kind: 'url' }),
                 }}
               />
               <span>{p.name}</span>
@@ -53,8 +53,14 @@ export default function Style({ design, onSet, onPreset }: Props) {
         <div className="field">
           <label htmlFor="c-bg">Background</label>
           <div className="tf">
-            <input id="c-bg" type="color" value={design.bg} onChange={e => onSet({ bg: e.target.value })} />
-            <input value={design.bg} onChange={e => onSet({ bg: e.target.value })} />
+            <input id="c-bg" type="color" value={design.bg} disabled={design.transparent}
+              onChange={e => onSet({ bg: e.target.value })} />
+            <input value={design.transparent ? '' : design.bg} placeholder="transparent" disabled={design.transparent}
+              onChange={e => onSet({ bg: e.target.value })} />
+            <button className="chip" aria-pressed={design.transparent}
+              onClick={() => onSet({ transparent: !design.transparent })}>
+              None
+            </button>
           </div>
         </div>
       </div>

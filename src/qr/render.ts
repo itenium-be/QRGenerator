@@ -119,7 +119,7 @@ export function renderSvg(design: QrDesign, extras: RenderExtras = {}): string {
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${view} ${view}" shape-rendering="geometricPrecision">` +
     `<defs>${gradient}</defs>` +
-    `<rect width="${view}" height="${view}" fill="${design.bg}"/>` +
+    (design.transparent ? '' : `<rect width="${view}" height="${view}" fill="${design.bg}"/>`) +
     `<g fill="${design.fg2 ? `url(#${gradientId})` : design.fg}">${mods}</g>` +
     `<g color="${eyeColor}" fill="${eyeColor}">${finders.map(([r, c]) => eye(design.eyeFrame, design.eyeDot, r + q, c + q)).join('')}</g>` +
     mark +

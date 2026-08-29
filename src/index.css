@@ -158,6 +158,10 @@ a { color: inherit; }
                     linear-gradient(90deg, var(--rule-2) 1px, transparent 1px);
   background-size: var(--u) var(--u); background-position: -1px -1px; }
 .stage .plate { background: #fff; border-radius: 4px; width: 100%; }
+.stage .plate.alpha { background-color: #fff;
+  background-image: linear-gradient(45deg, #e4e4e4 25%, transparent 25%, transparent 75%, #e4e4e4 75%),
+                    linear-gradient(45deg, #e4e4e4 25%, transparent 25%, transparent 75%, #e4e4e4 75%);
+  background-size: 16px 16px; background-position: 0 0, 8px 8px; }
 .stage svg { width: 100%; height: auto; display: block; }
 .stage .badge { position: absolute; top: 8px; right: 10px; font: 500 10px/1 var(--mono); letter-spacing: .08em;
   text-transform: uppercase; color: var(--ink-3); background: var(--surface); padding: 4px 7px;

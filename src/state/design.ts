@@ -23,6 +23,7 @@ export function initialDesign(): QrDesign {
     fg: '#2B4BF2',
     fg2: null,
     bg: '#FFFFFF',
+    transparent: false,
     eye: null,
     mark: { type: 'icon', set: 'b', slug: 'itenium' },
     markColor: 'brand',
@@ -62,9 +63,10 @@ export function reduce(design: QrDesign, action: Action): QrDesign {
     case 'kind':
       return { ...design, kind: action.kind }
 
+    /* Every preset names a background, which a transparent code would ignore. */
     case 'preset': {
       const { name, ...rest } = PRESETS[action.index]
-      return { ...design, ...rest }
+      return { ...design, ...rest, transparent: false }
     }
 
     /* A mark can only be rebuilt by error correction at level H, and 0.2 is the

@@ -33,14 +33,24 @@ export default function Preview({ design, svg, problem, payload, scan, onShrink 
               {SCAN_LABEL[scan] && ` · ${SCAN_LABEL[scan]}`}
             </span>
             {/* A white plate keeps a light-coloured code honest in dark mode. */}
-            <div className="plate" dangerouslySetInnerHTML={{ __html: svg }} />
+            <div className={design.transparent ? 'plate alpha' : 'plate'} dangerouslySetInnerHTML={{ __html: svg }} />
           </>
         ) : (
           <p className="empty">{problem}</p>
         )}
       </div>
 
-      {svg && ratio < 3 && (
+      {svg && design.transparent && (
+        <p className="note note-warn">
+          <span aria-hidden="true">▲</span>
+          <span>
+            No background, so whatever you place this on becomes the background. Cameras want at least <b>3:1</b>{' '}
+            against it, and a light one — most scanners expect dark modules on light.
+          </span>
+        </p>
+      )}
+
+      {svg && !design.transparent && ratio < 3 && (
         <p className="note note-warn">
           <span aria-hidden="true">▲</span>
           <span>

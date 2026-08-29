@@ -49,6 +49,13 @@ export default function Export({ design, svg, scan, shareUrl, onSet, onSave }: P
         </p>
       )}
 
+      {design.transparent && design.format === 'jpg' && (
+        <p className="note note-warn">
+          <span aria-hidden="true">▲</span>
+          <span>JPG has no alpha. This one exports on white — pick PNG, WebP or SVG to keep it transparent.</span>
+        </p>
+      )}
+
       <div className="field">
         <label>Format</label>
         <div className="chipset">

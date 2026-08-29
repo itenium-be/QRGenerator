@@ -23,6 +23,8 @@ export type QrDesign = {
   fg: string
   fg2: string | null
   bg: string
+  /** Drops the background rect, so SVG/PNG/WebP export with real alpha. */
+  transparent: boolean
   eye: string | null
   mark: Mark
   markColor: MarkColor
