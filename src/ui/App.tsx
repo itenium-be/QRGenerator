@@ -83,7 +83,6 @@ export default function App() {
   function saveDesign(name: string) {
     const { uploadDropped } = store.save(name, design)
     setSaved(store.list())
-    setShowSaved(true)
     if (uploadDropped) setNotice('Saved without the uploaded image — it was too large to keep in this browser.')
   }
 
@@ -107,8 +106,9 @@ export default function App() {
           <span>by itenium</span>
         </div>
         <span style={{ flex: 1 }} />
-        <button className="btn btn-ghost btn-sm" aria-expanded={showSaved} onClick={() => setShowSaved(v => !v)}>
-          Saved{saved.length ? ` · ${saved.length}` : ''}
+        <button className="btn btn-ghost btn-sm" aria-pressed={showSaved} onClick={() => setShowSaved(v => !v)}>
+          Saved
+          {saved.length > 0 && <span className="count">{saved.length}</span>}
         </button>
         <button className="btn btn-ghost btn-sm btn-icon" onClick={toggleTheme}
           title={theme === 'dark' ? 'Switch to light' : 'Switch to dark'}
@@ -129,7 +129,8 @@ export default function App() {
         <nav className="rail" aria-label="Steps">
           {STEPS.map(s => (
             <button key={s.n} className="step" aria-current={step === s.n ? 'step' : undefined}
-              data-done={s.n < step ? '' : undefined} onClick={() => setStep(s.n)}>
+              data-done={s.n < step ? '' : undefined}
+              onClick={() => { setStep(s.n); setShowSaved(false) }}>
               <span className="n">{s.n}</span>
               <span className="t">
                 {s.title}
@@ -137,39 +138,30 @@ export default function App() {
               </span>
             </button>
           ))}
-          <hr />
-          <div style={{ padding: '0 20px' }}>
-            <span className="eyebrow">Saved designs</span>
-            <div style={{ marginTop: 10 }}>
-              {showSaved ? (
-                <Saved
-                  items={saved}
-                  onLoad={d => { dispatch({ type: 'load', design: d }); setShowSaved(false) }}
-                  onRemove={id => { store.remove(id); setSaved(store.list()) }}
-                />
-              ) : (
-                <button className="btn btn-ghost btn-sm" onClick={() => setShowSaved(true)}>
-                  Show {saved.length || 'none'}
-                </button>
-              )}
-            </div>
-          </div>
         </nav>
 
         <main className="pane">
-          {step === 1 && (
+          {showSaved && (
+            <Saved
+              items={saved}
+              onLoad={d => { dispatch({ type: 'load', design: d }); setShowSaved(false) }}
+              onRemove={id => { store.remove(id); setSaved(store.list()) }}
+              onClose={() => setShowSaved(false)}
+            />
+          )}
+          {!showSaved && step === 1 && (
             <Content design={design} onKind={kind => dispatch({ type: 'kind', kind })}
               onField={(name, value) => dispatch({ type: 'field', name, value })} />
           )}
-          {step === 2 && <Style design={design} onSet={onSet} onPreset={i => dispatch({ type: 'preset', index: i })} />}
-          {step === 3 && (
+          {!showSaved && step === 2 && <Style design={design} onSet={onSet} onPreset={i => dispatch({ type: 'preset', index: i })} />}
+          {!showSaved && step === 3 && (
             <MarkStep design={design} index={index} bodies={bodies} onMark={onMark} onSet={onSet} onNeedBodies={needBodies} />
           )}
-          {step === 4 && (
+          {!showSaved && step === 4 && (
             <Export design={design} svg={svg} scan={scan} shareUrl={shareUrl} onSet={onSet} onSave={saveDesign} />
           )}
 
-          <div className="navrow">
+          {!showSaved && <div className="navrow">
             {step > 1 ? (
               <button className="btn btn-ghost" onClick={() => setStep(step - 1)}>← {STEPS[step - 2].title}</button>
             ) : (
@@ -182,7 +174,7 @@ export default function App() {
             ) : (
               <span />
             )}
-          </div>
+          </div>}
         </main>
 
         <aside className="aside">

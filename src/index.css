@@ -183,16 +183,21 @@ a { color: inherit; }
 .sharel span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* ---------- saved ---------- */
-.saved { display: flex; flex-direction: column; gap: 8px; }
-.saved-row { display: flex; align-items: center; gap: 6px; border: 1px solid var(--rule-2); border-radius: 7px; padding: 6px 7px; }
-/* The row is the open action, so the name and date get the width the button would have taken. */
-.saved-open { display: flex; align-items: center; gap: 9px; flex: 1; min-width: 0; border: 0; background: 0;
+.saved-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 10px; }
+.saved-card { display: flex; align-items: center; gap: 6px; border: 1px solid var(--rule-2);
+  border-radius: 8px; padding: 8px 9px; background: var(--surface); }
+.saved-card:hover { border-color: var(--rule); }
+/* The card is the open action, so the name and date get the width a button would have taken. */
+.saved-open { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; border: 0; background: 0;
   padding: 0; text-align: left; border-radius: 4px; }
 .saved-open:hover .meta b { color: var(--accent); }
-.saved-row svg { width: 32px; height: 32px; flex: none; border-radius: 3px; }
-.saved-row .meta { flex: 1; min-width: 0; }
-.saved-row .meta b { display: block; font-size: 13px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.saved-row .meta span { display: block; font: 400 10.5px var(--mono); color: var(--ink-3); white-space: nowrap; }
+.saved-card svg { width: 42px; height: 42px; flex: none; border-radius: 4px; }
+.saved-card .meta { flex: 1; min-width: 0; }
+.saved-card .meta b { display: block; font-size: 13px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.saved-card .meta span { display: block; font: 400 10.5px var(--mono); color: var(--ink-3); white-space: nowrap; }
+
+.count { display: inline-grid; place-items: center; min-width: 17px; height: 17px; padding: 0 5px;
+  border-radius: 999px; background: var(--accent); color: #fff; font: 600 10.5px/1 var(--mono); }
 
 /* ---------- footer ---------- */
 .footer { display: flex; align-items: center; gap: 14px; padding: 16px 24px; border-top: 1px solid var(--rule);
