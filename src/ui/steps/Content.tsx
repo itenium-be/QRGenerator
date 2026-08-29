@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { PAYLOADS, PAYLOAD_KINDS, type PayloadKind } from '../../payloads'
+import { COMMON_KINDS, OTHER_KINDS, PAYLOADS, type PayloadKind } from '../../payloads'
 import type { QrDesign } from '../../qr/types'
-import { FIELDS } from '../fields'
+import { FIELDS, type FieldDef } from '../fields'
 import { EyeGlyph, EyeOffGlyph } from '../glyphs'
 
 type Props = {
@@ -10,10 +10,24 @@ type Props = {
   onField: (name: string, value: string | boolean) => void
 }
 
+const inputType = (def: FieldDef, revealed: boolean) => {
+  if (def.type === 'password') return revealed ? 'text' : 'password'
+  return def.type === 'date' || def.type === 'datetime-local' ? def.type : 'text'
+}
+
 export default function Content({ design, onKind, onField }: Props) {
   const [revealed, setRevealed] = useState<Record<string, boolean>>({})
+  const [showOther, setShowOther] = useState(false)
   const fields = design.fields[design.kind]
   const defs = FIELDS[design.kind].filter(d => !d.when || d.when(fields))
+  const spec = PAYLOADS[design.kind]
+  const otherOpen = showOther || spec.group === 'other'
+
+  const chip = (kind: PayloadKind) => (
+    <button key={kind} className="chip tint" aria-pressed={design.kind === kind} onClick={() => onKind(kind)}>
+      {PAYLOADS[kind].label}
+    </button>
+  )
 
   return (
     <>
@@ -22,17 +36,15 @@ export default function Content({ design, onKind, onField }: Props) {
       </div>
 
       <div className="chipset">
-        {PAYLOAD_KINDS.map(kind => (
-          <button
-            key={kind}
-            className="chip tint"
-            aria-pressed={design.kind === kind}
-            onClick={() => onKind(kind)}
-          >
-            {PAYLOADS[kind].label}
-          </button>
-        ))}
+        {COMMON_KINDS.map(chip)}
+        <button className="chip" aria-expanded={otherOpen} onClick={() => setShowOther(v => !v)}>
+          Other <span className="count">{OTHER_KINDS.length}</span>
+        </button>
       </div>
+
+      {otherOpen && <div className="chipset">{OTHER_KINDS.map(chip)}</div>}
+
+      {spec.hint && <p className="hint">{spec.hint}</p>}
 
       <div className="two">
         {defs.map(def => (
@@ -73,10 +85,11 @@ export default function Content({ design, onKind, onField }: Props) {
                     <>
                       <input
                         id={`f-${def.name}`}
-                        type={def.type === 'password' && !revealed[def.name] ? 'password' : 'text'}
+                        type={inputType(def, Boolean(revealed[def.name]))}
                         value={String(fields[def.name] ?? '')}
                         placeholder={def.placeholder}
-                        onFocus={e => e.target.select()}
+                        /* select() throws on date inputs, which have no text range. */
+                        onFocus={e => e.target.type !== 'date' && e.target.type !== 'datetime-local' && e.target.select()}
                         onChange={e => onField(def.name, e.target.value)}
                       />
                       {def.type === 'password' && (

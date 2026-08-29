@@ -6,7 +6,7 @@ QR codes with a colour scheme and an icon in the middle, in the browser only.
 
 | Does | Detail |
 |---|---|
-| Payloads   | Link, text, Wi-Fi, contact (vCard 3.0), email, SMS, phone |
+| Payloads   | 24 kinds. Everyday: link, text, Wi-Fi (incl. WPA3 and enterprise EAP), contact (vCard 3.0/4.0), email, SMS, phone, calendar event, location, WhatsApp. Behind *Other*: MeCard, app-store smart link, SEPA/EPC, Swiss QR-bill, crypto, TOTP/HOTP, GS1 Digital Link, UPI, Pix, PromptPay, bookmark, Skype, FaceTime, Zoom |
 | Styling    | Module and eye shapes, solid or gradient colour, separate eye colour, quiet zone |
 | Centre mark| 5,492 icons (Simple Icons brands + Lucide), or your own SVG/PNG, tintable, brand colours built in |
 | Verifying  | Every preview is rasterized and decoded — the badge is a real read, not a promise |
