@@ -3,7 +3,7 @@ import type { PayloadKind } from '../payloads'
 export type FieldDef = {
   name: string
   label: string
-  type?: 'text' | 'textarea' | 'select' | 'checkbox'
+  type?: 'text' | 'password' | 'textarea' | 'select' | 'checkbox'
   placeholder?: string
   options?: { value: string; label: string }[]
   /** Hidden when the predicate fails, e.g. a password on an open network. */
@@ -17,7 +17,7 @@ export const FIELDS: Record<PayloadKind, FieldDef[]> = {
   text: [{ name: 'text', label: 'Text', type: 'textarea', placeholder: 'Anything you like', wide: true }],
 
   wifi: [
-    { name: 'ssid', label: 'Network name', placeholder: 'Itenium Guest', wide: true },
+    { name: 'ssid', label: 'Network name', wide: true },
     {
       name: 'security',
       label: 'Security',
@@ -28,7 +28,7 @@ export const FIELDS: Record<PayloadKind, FieldDef[]> = {
         { value: 'nopass', label: 'None' },
       ],
     },
-    { name: 'password', label: 'Password', when: f => f.security !== 'nopass' },
+    { name: 'password', label: 'Password', type: 'password', when: f => f.security !== 'nopass' },
     { name: 'hidden', label: 'Hidden network', type: 'checkbox', wide: true },
   ],
 

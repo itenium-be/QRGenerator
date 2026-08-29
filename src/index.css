@@ -128,6 +128,10 @@ a { color: inherit; }
 .tf option { background: var(--surface); color: var(--ink); }
 .tf textarea { padding: 9px 0; resize: vertical; min-height: 76px; font-family: var(--body); }
 .tf .unit { font: 500 11px var(--mono); color: var(--ink-3); }
+.tf ::placeholder { color: var(--ink-3); opacity: .75; }
+.tf .reveal { display: grid; place-items: center; width: 26px; height: 26px; flex: none; border: 0;
+  background: 0; border-radius: 4px; color: var(--ink-3); }
+.tf .reveal:hover { color: var(--ink); background: var(--sunk); }
 .tf input[type='color'] { width: 24px; height: 24px; flex: none; padding: 0; border: 1px solid var(--rule); border-radius: 5px; background: 0; }
 .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .range { -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: var(--rule);
