@@ -200,7 +200,6 @@ export default function App() {
 
       <footer className="footer">
         <a href="https://itenium.be" target="_blank" rel="noreferrer noopener">
-          <span>offered by</span>
           <IteniumLogo />
         </a>
         <span style={{ flex: 1 }} />

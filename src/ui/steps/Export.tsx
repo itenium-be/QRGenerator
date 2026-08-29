@@ -90,7 +90,6 @@ export default function Export({ design, svg, scan, shareUrl, onSet, onSave }: P
       </div>
 
       <div className="sharel"><span>{shareUrl}</span></div>
-      <span className="hint">The link carries every setting. An uploaded image stays on this device.</span>
 
       <div className="field">
         <label htmlFor="e-save">Save this design</label>
