@@ -97,10 +97,10 @@ export default function Style({ design, onSet, onPreset }: Props) {
         <summary className="eyebrow" style={{ cursor: 'pointer' }}>More: gradient, eye colour, quiet zone</summary>
         <div className="two" style={{ marginTop: 12 }}>
           <div className="field">
-            <label htmlFor="c-fg2">Gradient end</label>
+            <label htmlFor="c-fg2">Second colour</label>
             <div className="tf">
               <input id="c-fg2" type="color" value={design.fg2 ?? design.fg} onChange={e => onSet({ fg2: e.target.value })} />
-              <input value={design.fg2 ?? ''} placeholder="off" onChange={e => onSet({ fg2: e.target.value || null })} />
+              <input value={design.fg2 ?? ''} placeholder="no gradient" onChange={e => onSet({ fg2: e.target.value || null })} />
               {design.fg2 && (
                 <button className="btn btn-ghost btn-sm" onClick={() => onSet({ fg2: null })}>Clear</button>
               )}

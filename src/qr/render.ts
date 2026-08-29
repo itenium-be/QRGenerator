@@ -91,8 +91,11 @@ export function renderSvg(design: QrDesign, extras: RenderExtras = {}): string {
     }
   }
 
+  /* Several codes share one document — the preview and every preset thumbnail —
+     so a fixed id would make them all resolve to whichever rendered first. */
+  const gradientId = `qz-${design.fg}${design.fg2}`.replace(/[^a-z0-9]/gi, '')
   const gradient = design.fg2
-    ? `<linearGradient id="qz-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${design.fg}"/><stop offset="1" stop-color="${design.fg2}"/></linearGradient>`
+    ? `<linearGradient id="${gradientId}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${design.fg}"/><stop offset="1" stop-color="${design.fg2}"/></linearGradient>`
     : ''
   const eyeColor = design.eye ?? design.fg
   const markColor = resolveMarkColor(design, extras.brandHex)
@@ -109,7 +112,7 @@ export function renderSvg(design: QrDesign, extras: RenderExtras = {}): string {
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${view} ${view}" shape-rendering="geometricPrecision">` +
     `<defs>${gradient}</defs>` +
     `<rect width="${view}" height="${view}" fill="${design.bg}"/>` +
-    `<g fill="${design.fg2 ? 'url(#qz-g)' : design.fg}">${mods}</g>` +
+    `<g fill="${design.fg2 ? `url(#${gradientId})` : design.fg}">${mods}</g>` +
     `<g color="${eyeColor}" fill="${eyeColor}">${finders.map(([r, c]) => eye(design.eyeFrame, design.eyeDot, r + q, c + q)).join('')}</g>` +
     mark +
     '</svg>'

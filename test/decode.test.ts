@@ -118,3 +118,15 @@ describe("the app's own defaults", () => {
     expect(await verifyScannable(svg, resvgRasterizer, zxingDecoder)).toBe(encodePayload(design))
   })
 })
+
+describe('gradients', () => {
+  it('gives each colour pair its own gradient id, so codes on one page do not steal each others', () => {
+    const a = renderSvg(baseDesign({ fg: '#2B4BF2', fg2: '#8B2BF2' }))
+    const b = renderSvg(baseDesign({ fg: '#1B6B4A', fg2: '#E78200' }))
+    const idOf = (svg: string) => svg.match(/<linearGradient id="([^"]+)"/)?.[1]
+    expect(idOf(a)).toBeTruthy()
+    expect(idOf(a)).not.toBe(idOf(b))
+    expect(a).toContain(`url(#${idOf(a)})`)
+    expect(b).toContain(`url(#${idOf(b)})`)
+  })
+})
