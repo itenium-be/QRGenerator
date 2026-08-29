@@ -60,7 +60,7 @@ export default function MarkStep({ design, index, bodies, onMark, onSet, onNeedB
         <button
           className="chip tint"
           aria-pressed={design.mark.type === 'icon'}
-          onClick={() => onMark({ type: 'icon', set: 'g', slug: 'wifi' })}
+          onClick={() => onMark({ type: 'icon', set: 'b', slug: 'itenium' })}
         >
           Icon library
         </button>

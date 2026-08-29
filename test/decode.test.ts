@@ -1,4 +1,6 @@
+import { readFile } from 'node:fs/promises'
 import { describe, expect, it } from 'vitest'
+import { initialDesign } from '../src/state/design'
 import { PAYLOADS, PAYLOAD_KINDS } from '../src/payloads'
 import { fitMarkSize } from '../src/qr/fit'
 import { encodePayload, renderSvg } from '../src/qr/render'
@@ -99,5 +101,20 @@ describe('centre mark', () => {
     expect(
       await scansBack({ mark: { type: 'upload', name: 'x.svg', dataUrl, tintable: false }, markSize: 0.2, ecc: 'H' }),
     ).toBe(true)
+  })
+})
+
+describe("the app's own defaults", () => {
+  it('ships the itenium mark and decodes with it', async () => {
+    const shard = JSON.parse(await readFile('public/icons/b-i.json', 'utf8'))
+    const index: { s: string; h?: string }[] = JSON.parse(await readFile('public/icons/index.json', 'utf8'))
+    const body = shard.itenium
+    expect(body).toBeTruthy()
+    expect(index.find(e => e.s === 'itenium')?.h).toBe('#E78200')
+
+    const design = baseDesign({ ...initialDesign(), fields: baseDesign().fields })
+    const svg = renderSvg(design, { markBody: body, brandHex: '#E78200' })
+    expect(svg).toContain('#E78200')
+    expect(await verifyScannable(svg, resvgRasterizer, zxingDecoder)).toBe(encodePayload(design))
   })
 })

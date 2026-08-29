@@ -11,6 +11,18 @@ type Entry = { s: string; t: string; k: 'b' | 'g'; h?: string }
 
 const shardKey = (slug: string) => (/^[a-z]/.test(slug[0]) ? slug[0] : '_')
 
+/* Not in any public set, and it is the default mark. The 500x500 artwork is
+   scaled into the 24x24 box every other icon uses. */
+const HOUSE: (Entry & { body: string })[] = [
+  {
+    s: 'itenium',
+    t: 'itenium',
+    k: 'b',
+    h: '#E78200',
+    body: '<g fill="currentColor" transform="scale(0.048)"><path d="M240.966 28.8038L212.041 8.12531C106.866 131.104 77.6294 281.627 142.886 365.2L182.882 328.681C128.229 258.296 152.632 132.118 240.966 28.8038Z"/><path d="M258.349 473.196L287.274 493.875C392.449 370.896 421.608 220.373 356.429 136.8L316.433 173.319C371.087 243.704 346.684 369.96 258.349 473.274V473.196Z"/></g>',
+  },
+]
+
 async function brands() {
   const titles: Record<string, { title: string; hex: string }> = {}
   const raw = JSON.parse(await readFile('node_modules/simple-icons/data/simple-icons.json', 'utf8'))
@@ -28,6 +40,10 @@ async function brands() {
     const meta = titles[slug]
     entries.push({ s: slug, t: meta?.title ?? slug, k: 'b', h: meta?.hex ? '#' + meta.hex : undefined })
     ;(bodies[shardKey(slug)] ??= {})[slug] = `<g fill="currentColor"><path d="${d}"/></g>`
+  }
+  for (const { body, ...entry } of HOUSE) {
+    entries.push(entry)
+    ;(bodies[shardKey(entry.s)] ??= {})[entry.s] = body
   }
   return { entries, bodies }
 }
