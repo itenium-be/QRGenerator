@@ -1,5 +1,6 @@
 import qrcode from 'qrcode-generator'
 import { PAYLOADS } from '../payloads'
+import { fluidPath } from './fluid'
 import type { QrDesign } from './types'
 
 /* qrcode-generator's own stringToBytes truncates each char to one byte, which
@@ -80,15 +81,22 @@ export function renderSvg(design: QrDesign, extras: RenderExtras = {}): string {
     ? { lo: (n - side) / 2 - design.markClearance + q, hi: (n + side) / 2 + design.markClearance + q }
     : null
 
+  const inHole = (r: number, c: number) => {
+    if (!hole) return false
+    const x = c + q
+    const y = r + q
+    return x + 1 > hole.lo && x < hole.hi && y + 1 > hole.lo && y < hole.hi
+  }
+  const inGrid = (r: number, c: number) => r >= 0 && r < n && c >= 0 && c < n
+  const open = (r: number, c: number) => inGrid(r, c) && !inFinder(r, c) && !inHole(r, c)
+  const dark = (r: number, c: number) => open(r, c) && m.dark(r, c)
+
   let mods = ''
-  for (let r = 0; r < n; r++) {
-    for (let c = 0; c < n; c++) {
-      if (!m.dark(r, c) || inFinder(r, c)) continue
-      const x = c + q
-      const y = r + q
-      if (hole && x + 1 > hole.lo && x < hole.hi && y + 1 > hole.lo && y < hole.hi) continue
-      mods += modulePath(design.dot, x, y)
-    }
+  if (design.dot === 'fluid') {
+    mods = fluidPath(dark, open, n, q)
+  } else {
+    for (let r = 0; r < n; r++)
+      for (let c = 0; c < n; c++) if (dark(r, c)) mods += modulePath(design.dot, c + q, r + q)
   }
 
   /* Several codes share one document — the preview and every preset thumbnail —

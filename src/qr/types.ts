@@ -1,6 +1,6 @@
 import type { Fields, PayloadKind } from '../payloads'
 
-export type DotStyle = 'square' | 'rounded' | 'extra-rounded' | 'dots' | 'classy'
+export type DotStyle = 'square' | 'rounded' | 'extra-rounded' | 'dots' | 'classy' | 'fluid'
 export type EyeFrame = 'square' | 'rounded' | 'extra-rounded' | 'dot'
 export type EyeDot = 'square' | 'rounded' | 'dot'
 export type Ecc = 'L' | 'M' | 'Q' | 'H'

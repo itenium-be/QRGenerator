@@ -43,7 +43,7 @@ describe('every payload kind round-trips through a decoder', () => {
 })
 
 describe('styling never breaks the code', () => {
-  const dots: DotStyle[] = ['square', 'rounded', 'extra-rounded', 'dots', 'classy']
+  const dots: DotStyle[] = ['square', 'rounded', 'extra-rounded', 'dots', 'classy', 'fluid']
   const frames: EyeFrame[] = ['square', 'rounded', 'extra-rounded', 'dot']
   const eyeDots: EyeDot[] = ['square', 'rounded', 'dot']
 

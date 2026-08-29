@@ -8,11 +8,11 @@ type Props = {
   onPreset: (index: number) => void
 }
 
-const DOTS: DotStyle[] = ['square', 'rounded', 'extra-rounded', 'dots', 'classy']
+const DOTS: DotStyle[] = ['square', 'rounded', 'extra-rounded', 'dots', 'classy', 'fluid']
 const FRAMES: EyeFrame[] = ['square', 'rounded', 'extra-rounded', 'dot']
 const EYE_DOTS: EyeDot[] = ['square', 'rounded', 'dot']
 const NAME: Record<string, string> = {
-  square: 'Square', rounded: 'Rounded', 'extra-rounded': 'Soft', dots: 'Dots', classy: 'Classy', dot: 'Circle',
+  square: 'Square', rounded: 'Rounded', 'extra-rounded': 'Soft', dots: 'Dots', classy: 'Classy', fluid: 'Fluid', dot: 'Circle',
 }
 
 export default function Style({ design, onSet, onPreset }: Props) {
