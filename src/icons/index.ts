@@ -21,7 +21,7 @@ export function loadBody(entry: IconEntry): Promise<string | undefined> {
   return shard.then(map => map[entry.s])
 }
 
-export function search(entries: IconEntry[], query: string, limit = 60): IconEntry[] {
+export function search(entries: IconEntry[], query: string, limit = 48): IconEntry[] {
   const q = query.trim().toLowerCase()
   if (!q) return entries.filter(e => e.k === 'g').slice(0, limit)
 
