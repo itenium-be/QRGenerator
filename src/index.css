@@ -183,7 +183,7 @@ a { color: inherit; }
 .sharel span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* ---------- saved ---------- */
-.saved-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 10px; }
+.saved-grid { display: flex; flex-direction: column; gap: 8px; }
 .saved-card { display: flex; align-items: center; gap: 6px; border: 1px solid var(--rule-2);
   border-radius: 8px; padding: 8px 9px; background: var(--surface); }
 .saved-card:hover { border-color: var(--rule); }
@@ -191,7 +191,7 @@ a { color: inherit; }
 .saved-open { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; border: 0; background: 0;
   padding: 0; text-align: left; border-radius: 4px; }
 .saved-open:hover .meta b { color: var(--accent); }
-.saved-card svg { width: 42px; height: 42px; flex: none; border-radius: 4px; }
+.saved-card svg { width: 46px; height: 46px; flex: none; border-radius: 4px; }
 .saved-card .meta { flex: 1; min-width: 0; }
 .saved-card .meta b { display: block; font-size: 13px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .saved-card .meta span { display: block; font: 400 10.5px var(--mono); color: var(--ink-3); white-space: nowrap; }
