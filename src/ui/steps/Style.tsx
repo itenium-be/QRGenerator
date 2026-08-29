@@ -129,7 +129,6 @@ export default function Style({ design, onSet, onPreset }: Props) {
             value={design.margin}
             onChange={e => onSet({ margin: Number(e.target.value) })}
           />
-          <span className="hint">The spec asks for 4. Below 2, cheap scanners start refusing.</span>
         </div>
       </details>
     </>
