@@ -7,40 +7,25 @@ Effort is rough: **S** = an afternoon, **M** = a few days, **L** = a project of 
 
 ## Where it stands today
 
-| Area        | Today                                                                                                     |
-| ----------- | --------------------------------------------------------------------------------------------------------- |
-| Payloads    | Link, text, Wi-Fi, vCard 3.0, email, SMS, phone                                                           |
-| Style       | 5 module shapes, 4 eye frames, 3 eye centres, linear gradient, separate eye colour, quiet zone, 5 presets |
-| Mark        | 5,492 icons (Simple Icons + Lucide), SVG/PNG upload, brand-hex tint, clearance, auto-fit                  |
-| Verify      | Every preview rasterized and decoded with zxing-wasm; contrast ratio warning                              |
-| Export      | SVG, PNG, JPG, WebP; copy image; copy share link                                                          |
-| Persistence | Design in the URL hash, saved designs in localStorage                                                     |
+| Area        | Today                                                                                                                                           |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payloads    | 24 kinds — 10 everyday, 14 behind an *Other* disclosure (payments, GS1, TOTP, app links, …)                                                     |
+| Style       | 6 module shapes (including fluid, merging neighbours), 4 eye frames, 3 eye centres, linear gradient, separate eye colour, quiet zone, 5 presets |
+| Mark        | 5,492 icons (Simple Icons + Lucide), SVG/PNG upload, brand-hex tint, clearance, auto-fit                                                        |
+| Verify      | Every preview rasterized and decoded with zxing-wasm; contrast ratio warning                                                                    |
+| Export      | SVG, PNG, JPG, WebP, transparent background; copy image; copy share link                                                                        |
+| Persistence | Design in the URL hash, saved designs in localStorage                                                                                           |
 
 ---
 
 ## 1. Payload types
 
-The single biggest gap versus the competition. Each is a `PayloadSpec` in `src/payloads/index.ts` —
-`defaults`, `problem`, `encode` — plus a field list. Most are S individually.
+All 24 are in, specs under `src/payloads/`. What is left from this section:
 
-| Idea                             | Format                                                    | Why it matters                                                 | Effort |
-| -------------------------------- | --------------------------------------------------------- | -------------------------------------------------------------- | ------ |
-| Calendar event                   | `BEGIN:VEVENT` (iCal)                                     | Conferences, meetups, save-the-date posters                    | S      |
-| Geo location                     | `geo:lat,lon`                                             | Venue, meeting point, trailhead                                | S      |
-| WhatsApp message                 | `https://wa.me/<nr>?text=`                                | Very common in EU marketing                                    | S      |
-| MeCard                           | `MECARD:N:…;`                                             | Shorter than vCard, better Android support, smaller code       | S      |
-| vCard 4.0 + more fields          | address, birthday, note, second phone, photo              | vCard 3.0 today is thin                                        | S      |
-| App store smart link             | static redirect page on Pages, UA-sniffed in JS           | One code, iOS/Android/desktop destinations — no backend needed | M      |
-| SEPA / EPC payment               | `BCD` service tag (IBAN, name, amount, remittance)        | Invoices, donations, Belgian/EU standard                       | S      |
-| Swiss QR-bill                    | ISO-20022, needs the Swiss cross mark                     | Mandatory format in CH                                         | M      |
-| Crypto payment                   | `bitcoin:`, `ethereum:`, `solana:` URIs with amount/label | Donation pages                                                 | S      |
-| TOTP / 2FA                       | `otpauth://totp/…?secret=`                                | Enrolling authenticator apps; the secret never leaves the tab  | S      |
-| GS1 Digital Link                 | GTIN + lot/serial/expiry into a URL                       | Packaging, traceability, retail                                | M      |
-| PIX / UPI / PromptPay            | country payment schemes, EMVCo TLV + CRC16                | Big outside the EU                                             | M      |
-| Bookmark, Skype, FaceTime, Zoom  | trivial URI schemes                                       | Long tail, cheap to add                                        | S      |
-| Wi-Fi: WPA3/SAE + hidden + EAP   | extra `T:` values and enterprise fields                   | Current form only does WPA/WEP/none                            | S      |
-| Multi-line raw / "advanced" mode | textarea with byte counter + mode indicator               | Power users who know the format they want                      | S      |
-| Payload templates                | pre-filled examples per type ("try a sample")             | Removes the blank-form stare                                   | S      |
+| Idea                | Detail                                                                | Effort |
+| ------------------- | --------------------------------------------------------------------- | ------ |
+| Payload templates   | Pre-filled examples per type — "try a sample" instead of a blank form | S      |
+| Raw / advanced mode | Textarea with a byte counter and the chosen encoding mode shown       | S      |
 
 ## 2. Other symbologies
 
@@ -63,8 +48,7 @@ highest value-per-line item in the whole list.
 | Radial and angled gradients     | Today: linear at a fixed 45°. Add angle, radial, and a 3+ stop editor         | S      |
 | Gradient on eyes and background | Separate gradient targets, as `qr-code-styling` has                           | S      |
 | Per-corner eye styling          | Each of the three finders its own shape and colour                            | S      |
-| More module shapes              | Diamond, star, cross, vertical/horizontal bars, "fluid" merged neighbours     | M      |
-| Fluid / connected modules       | Neighbour-aware path merging — the look most premium generators sell          | L      |
+| More module shapes              | Diamond, star, cross, vertical and horizontal bars                            | M      |
 | Background image                | Photo behind the code with an opacity/scrim control, verified as always       | M      |
 | Halftone / artistic QR          | Image mapped onto module density; each module a small tile                    | L      |
 | Custom module image             | Tile a logo or emoji as the module glyph                                      | M      |
@@ -72,7 +56,6 @@ highest value-per-line item in the whole list.
 | Colour extraction from logo     | Upload a logo, offer its dominant colours as the palette                      | M      |
 | Palette suggestions             | Given `fg`, propose backgrounds that clear 3:1 and look intentional           | S      |
 | Preset library                  | Many more than 5, grouped (corporate, playful, print, mono), each thumbnailed | S      |
-| Transparent background          | Real alpha for PNG/WebP/SVG — plus a warning that scanners need contrast      | S      |
 | Invert / dark-mode variant      | Export a light-on-dark twin in one click                                      | S      |
 | Mark shapes                     | Circle/rounded/square plate behind the mark, mark offset, mark rotation       | S      |
 
