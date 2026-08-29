@@ -50,10 +50,6 @@ export default function MarkStep({ design, index, bodies, onMark, onSet, onNeedB
     <>
       <div>
         <h2>Put something in the middle.</h2>
-        <p className="lede">
-          Error correction rebuilds what the mark covers, up to a point. Adding one locks error correction to H and
-          keeps the mark at a size that still decodes.
-        </p>
       </div>
 
       <div className="chipset">
