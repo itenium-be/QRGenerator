@@ -24,9 +24,6 @@ export default function Style({ design, onSet, onPreset }: Props) {
     <>
       <div>
         <h2>Make it yours.</h2>
-        <p className="lede">
-          Start from a preset, then push it. The preview is the real code — it gets decoded on every change.
-        </p>
       </div>
 
       <div className="field">

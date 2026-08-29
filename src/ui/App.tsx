@@ -19,6 +19,9 @@ import Style from './steps/Style'
 
 const REPO = 'https://github.com/itenium-be/QRGenerator'
 
+/** How much of a damaged or covered code each error correction level can rebuild. */
+const RECOVERY = { L: '7%', M: '15%', Q: '25%', H: '30%' }
+
 const STEPS = [
   { n: 1, title: 'Content', hint: (d: QrDesign) => d.kind },
   { n: 2, title: 'Style', hint: (d: QrDesign) => `${d.dot} · ${d.fg}` },
@@ -188,8 +191,7 @@ export default function App() {
             <dl className="sum">
               <dt>kind</dt><dd>{design.kind}</dd>
               <dt>payload</dt><dd title={payload}>{payload || '—'}</dd>
-              <dt>bytes</dt><dd>{new TextEncoder().encode(payload).length}</dd>
-              <dt>ecc</dt><dd>{design.ecc}</dd>
+              <dt>recovery</dt><dd>{RECOVERY[design.ecc]}</dd>
               <dt>mark</dt><dd>{design.mark.type === 'icon' ? design.mark.slug : design.mark.type}</dd>
             </dl>
           </div>
